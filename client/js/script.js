@@ -240,7 +240,7 @@ messageInput.addEventListener('input', () => {
  * Auto-load older messages when scrolling near the top of the chat container.
  */
 scroller.addEventListener('scroll', () => {
-	if (scroller.scrollTop < 50 && !loading) {
+	if (scroller.scrollTop < 1 && !loading) {
 		loading = true;
 		offset += limit;
 		socket.emit('loadMoreMessages', { offset, limit });
