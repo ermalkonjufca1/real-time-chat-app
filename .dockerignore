@@ -1,0 +1,10 @@
+# Ignore local dependencies and logs to reduce build context
+node_modules
+npm-debug.log
+
+# Exclude version control files
+.git
+.gitignore
+
+# Exclude documentation and markdown files
+*.md

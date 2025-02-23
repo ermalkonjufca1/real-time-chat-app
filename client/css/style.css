@@ -1,0 +1,17 @@
+#login,
+#chatContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+#leaveBtn {
+  rotate: 180deg;
+}
+
+.timestamp {
+  font-size: 10px;
+  color: #363636;
+}
+
+#typingIndicator {
+  top: -20px;
+}

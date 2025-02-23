@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Realtime Chat App</title>
+    <link
+      rel="stylesheet"
+      href="css/style.css"
+    />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+	
+    <div id="login">
+      <div
+        class="flex min-h-full h-screen flex-col justify-center px-6 py-12 lg:px-8"
+      >
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+          <h2
+            class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900"
+          >
+            Join Chat
+          </h2>
+        </div>
+
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form
+            id="loginForm"
+            class="space-y-6"
+          >
+            <div>
+              <label
+                for="username"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Username</label
+              >
+              <div class="mt-2">
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="Enter your username"
+                  required
+                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="room"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Room</label
+              >
+              <div class="mt-2">
+                <input
+                  type="text"
+                  id="room"
+                  placeholder="Enter room name"
+                  required
+                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
+            <div>
+              <button
+                type="submit"
+                class="cursor-pointer flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              >
+                Join Chat
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="chatContainer"
+      style="display: none"
+    >
+      <div class="flex h-screen antialiased text-gray-800">
+        <div class="flex flex-row h-full w-full overflow-hidden">
+          <div
+            class="sidebar h-full flex flex-col py-8 pl-6 pr-2 w-64 bg-white flex-shrink-0"
+          >
+            <div
+              class="sidebar-top flex gap-2 flex-col items-center justify-center h-36 w-full"
+            >
+              <div
+                id="usernamePlaceholder"
+                class="ml-2 font-bold text-2xl"
+              >
+                Username
+              </div>
+              <button
+                id="leaveBtn"
+                onclick="window.location.href='/'"
+                class="cursor-pointer flex items-center justify-center text-gray-400 hover:text-gray-600"
+              >
+                <svg
+                  class="leave-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  x="0px"
+                  y="0px"
+                  width="30"
+                  height="30"
+                  fill="currentColor"
+                  viewBox="0 0 48 48"
+                  class="w-5 h-5"
+                >
+                  <path
+                    d="M 12 6 C 8.7099679 6 6 8.7099679 6 12 L 6 36 C 6 39.290032 8.7099679 42 12 42 L 29 42 C 31.776017 42 34.247059 40.180505 34.9375 37.498047 A 2.0004892 2.0004892 0 1 0 31.0625 36.501953 C 30.864941 37.269495 29.951983 38 29 38 L 12 38 C 10.872032 38 10 37.127968 10 36 L 10 12 C 10 10.872032 10.872032 10 12 10 L 29 10 C 29.951983 10 30.864941 10.730505 31.0625 11.498047 A 2.0004892 2.0004892 0 1 0 34.9375 10.501953 C 34.247059 7.8194949 31.776017 6 29 6 L 12 6 z M 33.978516 15.980469 A 2.0002 2.0002 0 0 0 32.585938 19.414062 L 35.171875 22 L 17 22 A 2.0002 2.0002 0 1 0 17 26 L 35.171875 26 L 32.585938 28.585938 A 2.0002 2.0002 0 1 0 35.414062 31.414062 L 41.414062 25.414062 A 2.0002 2.0002 0 0 0 41.414062 22.585938 L 35.414062 16.585938 A 2.0002 2.0002 0 0 0 33.978516 15.980469 z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <div class="sidebar-bottom h-full flex flex-col mt-8">
+              <div
+                id="users"
+                class="h-full"
+              >
+                <div
+                  class="flex my-2 flex-row items-center justify-between text-xs text-gray-400"
+                >
+                  <span>Click on a user to send a private message.</span>
+                </div>
+                <div class="flex flex-row items-center justify-between text-xs">
+                  <span class="font-bold">Online Users</span>
+                  <span
+                    id="total-users-count"
+                    class="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full"
+                    >0</span
+                  >
+                </div>
+                <div
+                  id="usersList"
+                  class="flex flex-col space-y-1 mt-4 -mx-2 h-full overflow-y-auto"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="chat flex flex-col flex-auto h-full p-6">
+            <div
+              class="relative flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4"
+            >
+              <div
+                class="sticky top-0 flex flex-row items-center h-16 rounded-xl bg-white w-full px-4"
+              >
+                <h2 id="roomName"></h2>
+              </div>
+              <div class="scroller flex flex-col h-full overflow-x-auto mb-4">
+                <div class="flex flex-col h-full">
+                  <div
+                    id="chatMessages"
+                    class="grid grid-cols-12 gap-y-2"
+                  ></div>
+                </div>
+              </div>
+              <form
+                class="relative"
+                id="messageForm"
+              >
+                <div
+                  class="absolute text-xs text-gray-900"
+                  id="typingIndicator"
+                ></div>
+                <div
+                  class="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4"
+                >
+                  <div class="flex-grow">
+                    <div class="relative w-full">
+                      <input
+                        type="text"
+                        id="messageInput"
+                        placeholder="Type your message"
+                        autocomplete="off"
+                        required
+                        class="flex w-full border rounded-xl focus:outline-none focus:border-blue-300 pl-4 h-10"
+                      />
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    <button
+                      id="send"
+                      type="submit"
+                      class="cursor-pointer flex items-center justify-center bg-blue-500 hover:bg-blue-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
+                    >
+                      <span>Send</span>
+                      <span class="ml-2">
+                        <svg
+                          class="w-4 h-4 transform rotate-45 -mt-px"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                          ></path>
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
